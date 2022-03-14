@@ -50,6 +50,7 @@ void makeGameLogic(RockPaperScissors playerChoice, RockPaperScissors computerCho
 
 int main() {
   int gameContinue = 1;
+  stdout.write("Start!\n");
   while (gameContinue == 1) {
     stdout.write("--------------------------------------------------\n");
     stdout.write('Select:\n1 - Rock, 2 - Paper, 3 - Scissors\nEnter: ');
@@ -73,10 +74,9 @@ int main() {
     stdout.write('Select:\n1 - Play game, 2 - Exit\nEnter: ');
     gameContinue = int.parse(stdin.readLineSync() ?? '0');
     if (gameContinue == 2) {
-      gameContinue++;
       stdout.write('\nEnd game\n');
+      return 0;
     }
   }
-
   return 0;
 }
