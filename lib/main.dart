@@ -1,7 +1,11 @@
 import 'dart:io';
 import 'dart:math';
 
-class PlayerMoveIndexException {}
+class PlayerMoveIndexException implements Exception {
+  String getErrorMessage() {
+    return '\nIncorrect index\n';
+  }
+}
 
 enum RockPaperScissors {
   rock,
@@ -53,10 +57,10 @@ int main() {
   try {
      playerIndex = int.parse(stdin.readLineSync() ?? '0');
       if (playerIndex < 1 || playerIndex > 3) {
-        throw(PlayerMoveIndexException);
+        throw PlayerMoveIndexException();
       }
-  } catch (PlayerMoveIndexException) {
-    stdout.write("\nIncorrect index\n");
+  } on PlayerMoveIndexException catch(e) {
+    stdout.write(e.getErrorMessage());
     return 0;
   }
   final playerMove = selectAttribute(playerIndex);
