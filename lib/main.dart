@@ -9,7 +9,7 @@ enum RockPaperScissors {
   scissors
 }
 
-RockPaperScissors selectAttribute(int playerChoice) {
+RockPaperScissors selectAttribute(final int playerChoice) {
   var playerMove;
   switch (playerChoice) {
     case 1: {
@@ -62,7 +62,7 @@ int main() {
   final playerMove = selectAttribute(playerIndex);
   final computerMove = selectAttribute(createRandomNum());
 
-  stdout.write("\nYour choice: ${playerMove.name} ${playerMove.index} \nComputer choice: ${computerMove.name}  ${computerMove.index}\n");
+  stdout.write("\nYour choice: ${playerMove.name} \nComputer choice: ${computerMove.name} \n");
   makeGameLogic(playerMove, computerMove);
   return 0;
 }
