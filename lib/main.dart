@@ -13,8 +13,8 @@ enum RockPaperScissors {
   scissors
 }
 
-RockPaperScissors selectAttribute(final int playerChoice) {
-  var playerMove;
+RockPaperScissors? selectAttribute(final int? playerChoice) {
+  final RockPaperScissors? playerMove;
   switch (playerChoice) {
     case 1: {
       playerMove = RockPaperScissors.rock;
@@ -28,6 +28,9 @@ RockPaperScissors selectAttribute(final int playerChoice) {
       playerMove = RockPaperScissors.scissors;
       break;
     }
+    default: {
+      playerMove = null;
+    }
   }
   return playerMove;
 }
@@ -36,12 +39,13 @@ int createRandomNum() {
   final randomNum =  Random().nextInt(2) + 1;
   return randomNum;
 }
-void makeGameLogic(RockPaperScissors playerChoice, RockPaperScissors computerChoice) {
-  if (playerChoice.index == computerChoice.index) {
+
+void makeGameLogic(RockPaperScissors? playerChoice, RockPaperScissors? computerChoice) {
+  if (playerChoice?.index == computerChoice?.index) {
       stdout.write("\nIt was a tie!\n");
-  } else if ((playerChoice.index == 1 && computerChoice.index == 0) ||
-              (playerChoice.index == 0 && computerChoice.index == 2) ||
-              (playerChoice.index == 2 && computerChoice.index == 1)) {
+  } else if  ((playerChoice?.index == 2 && computerChoice?.index == 1) ||
+              (playerChoice?.index == 1 && computerChoice?.index == 0) ||
+              (playerChoice?.index == 0 && computerChoice?.index == 2)) {
       stdout.write("\nYou win! Computer lose...\n");
   }  else {
       stdout.write("\nComputer win! You lose...\n");
@@ -49,9 +53,9 @@ void makeGameLogic(RockPaperScissors playerChoice, RockPaperScissors computerCho
 }
 
 int main() {
-  int gameContinue = 1;
+  bool flagGameContinue = true;
   stdout.write("Start!\n");
-  while (gameContinue == 1) {
+  while (flagGameContinue) {
     stdout.write("--------------------------------------------------\n");
     stdout.write('Select:\n1 - Rock, 2 - Paper, 3 - Scissors\nEnter: ');
     final int playerIndex;
@@ -64,19 +68,27 @@ int main() {
       stdout.write(e.getErrorMessage());
       return 0;
     }
-    final playerMove = selectAttribute(playerIndex);
-    final computerMove = selectAttribute(createRandomNum());
 
-    stdout.write("\nYour choice: ${playerMove.name} \nComputer choice: ${computerMove.name} \n");
+    final RockPaperScissors? playerMove = selectAttribute(playerIndex);
+    final RockPaperScissors? computerMove = selectAttribute(createRandomNum());
+
+    stdout.write("\nYour choice: ${playerMove?.name} \nComputer choice: ${computerMove?.name} \n");
     makeGameLogic(playerMove, computerMove);
 
     stdout.write("--------------------------------------------------\n");
-    stdout.write('Select:\n1 - Play game, 2 - Exit\nEnter: ');
-    gameContinue = int.parse(stdin.readLineSync() ?? '0');
-    if (gameContinue == 2) {
-      stdout.write('\nEnd game\n');
-      return 0;
+    stdout.write('Select:\n1 - Exit, 2 - Play game\nEnter: ');
+    final int? gameContinue = int.parse(stdin.readLineSync() ?? '0');
+    switch (gameContinue) {
+      case 1: {
+        flagGameContinue = false;
+        break;
+      }
+      default: {
+        flagGameContinue = true;
+        break;
+      }
     }
   }
+  stdout.write('\nEnd game\n');
   return 0;
 }
