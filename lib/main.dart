@@ -53,9 +53,8 @@ void makeGameLogic(RockPaperScissors? playerChoice, RockPaperScissors? computerC
 }
 
 int main() {
-  bool flagGameContinue = true;
   stdout.write("Start!\n");
-  while (flagGameContinue) {
+  while (true) {
     stdout.write("--------------------------------------------------\n");
     stdout.write('Select:\n1 - Rock, 2 - Paper, 3 - Scissors\nEnter: ');
     final int playerIndex;
@@ -78,15 +77,8 @@ int main() {
     stdout.write("--------------------------------------------------\n");
     stdout.write('Select:\n1 - Exit, 2 - Play game\nEnter: ');
     final int? gameContinue = int.parse(stdin.readLineSync() ?? '0');
-    switch (gameContinue) {
-      case 1: {
-        flagGameContinue = false;
-        break;
-      }
-      default: {
-        flagGameContinue = true;
-        break;
-      }
+    if (gameContinue == 1) {
+      break;
     }
   }
   stdout.write('\nEnd game\n');
